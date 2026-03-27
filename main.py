@@ -9,7 +9,7 @@ import random
 import string
 
 def generate_a_email(min_a=1, max_a=30, domain="gmail.com"):
-    name = 'v' * random.randint(min_a, max_a)
+    name = 'y' * random.randint(min_a, max_a)
     return f"{name}@{domain}"
 generate_a_email()
 browser = webdriver.Chrome()
@@ -57,7 +57,8 @@ def succes_registration_and_purchase_vertolet(browser):
     browser.find_element(By.NAME, "_password").send_keys('121345')
     browser.find_element(By.NAME, "_password2").send_keys('121345')
     browser.find_element(By.CSS_SELECTOR, 'input[src="/imgs/but_reg.gif"]').click()
-    sleep(5)
+    browser.implicitly_wait(100)
+    browser.find_element(By.XPATH, "//a[@rel='nofollow'][contains(text(), 'Товары и услуги')]").click()
     browser.find_element(By.XPATH, "//a[@rel='nofollow'][contains(text(), 'Товары и услуги')]").click()
     WebDriverWait(browser, 10).until(EC.element_to_be_clickable((By.PARTIAL_LINK_TEXT, "Бытовая техника"))).click()
     #ActionChains(browser).move_to_element(browser.find_element(By.LINK_TEXT, 'Бытовая техника"]')).perform()
@@ -66,7 +67,13 @@ def succes_registration_and_purchase_vertolet(browser):
     # browser.find_element(By.LINK_TEXT, "Бытовая техника").click()
     browser.find_element(By.LINK_TEXT, "Аудиотехника").click()
     browser.find_element(By.LINK_TEXT, "Front Row Guno - цифровая инфракрасная акустическая система").click()
-    browser.find_element(By.XPATH, "//a[@alt='Купить товар']")
+    browser.find_element(By.XPATH, "//a[@alt='Купить товар']").click()
+    browser.implicitly_wait(10)
+    browser.find_element(By.LINK_TEXT, "Оформить заказ").click()
+    browser.implicitly_wait(10)
+    browser.find_element(By.CSS_SELECTOR, 'a[href="/login?logout=1&return=/shop/"]').click()
+    
+
 
 succes_registration_and_purchase_vertolet(browser)
 
